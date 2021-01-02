@@ -1,0 +1,68 @@
+import React from 'react';
+import { StyleSheet, View, Image, Button, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+import Home from './screens/Home';
+import Screen1 from './screens/Screen1';
+import Screen2 from './screens/Screen2';
+
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function Splash({navigation}) {
+  setTimeout(() => {
+    navigation.replace('Home') // Stack Name 
+  }, 3000);
+  return (
+    <View style={styles.container}>
+      <Image
+        style={styles.logo}
+        source={{
+          uri:
+            'https://i.esdrop.com/d/nW1USMQyuT.png',
+          }}
+      />
+    </View>
+  )
+}
+
+function DrawerRoutes() {
+  return (
+    <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Screen name="Home" component={Home} />
+      <Drawer.Screen name="Screen1" component={Screen1} />
+      <Drawer.Screen name="Screen2" component={Screen2} />
+    </Drawer.Navigator>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator headerMode="none">
+        <Stack.Screen name="Splash" component={Splash}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen name="Home" component={DrawerRoutes} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'rgb(204, 0, 51)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  logo: {
+    width: 132,
+    height: 132,
+  },
+});
